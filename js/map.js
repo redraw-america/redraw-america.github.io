@@ -330,7 +330,7 @@ var update = function(resizeUpdate) {
       if (year == "2000") {
         dem_percentage = ((state.dem * 100) / (state.dem + state.gop + state.oth + state.grn)).toFixed(2).toString().concat("%")
         gop_percentage = ((state.gop * 100) / (state.dem + state.gop + state.oth + state.grn)).toFixed(2).toString().concat("%")
-        oth_percentage = ((state.oth + state.grn * 100) / (state.dem + state.gop + state.oth + state.grn)).toFixed(2).toString().concat("%")  
+        oth_percentage = (((state.oth + state.grn) * 100) / (state.dem + state.gop + state.oth + state.grn)).toFixed(2).toString().concat("%")  
       }
 
       return [STATE_ABBREVS[i], state.population, state.electors,
