@@ -71,19 +71,7 @@ var setYear = function(newYear) {
       'oth': 'Other'
     }
     loser = 'Al Gore';
-  } /*else if (newYear === '2016i') {
-    year = newYear;
-    dataFile = 'data/us2016income.json';
-    partyToCandidate = {
-      'dem': 'Hillary Clinton',
-      'gop': 'Donald Trump',
-      'grn': "Jill Stein",
-      'lib': 'Gary Johnson',
-      'una': 'Evan McMullin',
-      'oth': 'Other'
-    }
-    loser = 'Hillary Clinton';
-  } */else {
+  } else {
     year = newYear;
     dataFile = 'data/2016test.json';
     partyToCandidate = {
@@ -335,8 +323,18 @@ var update = function(resizeUpdate) {
   var td = tr.selectAll("td")
     .data(function (d, i) {
       var state = stateTotals[STATE_ABBREVS[i]];
+      var dem_percentage = ((state.dem * 100) / (state.dem + state.gop + state.oth)).toFixed(2).toString().concat("%")
+      var gop_percentage = ((state.gop * 100) / (state.dem + state.gop + state.oth)).toFixed(2).toString().concat("%")
+      var oth_percentage = ((state.oth * 100) / (state.dem + state.gop + state.oth)).toFixed(2).toString().concat("%")
+
+      if (year == "2000") {
+        dem_percentage = ((state.dem * 100) / (state.dem + state.gop + state.oth + state.grn)).toFixed(2).toString().concat("%")
+        gop_percentage = ((state.gop * 100) / (state.dem + state.gop + state.oth + state.grn)).toFixed(2).toString().concat("%")
+        oth_percentage = ((state.oth + state.grn * 100) / (state.dem + state.gop + state.oth + state.grn)).toFixed(2).toString().concat("%")  
+      }
+
       return [STATE_ABBREVS[i], state.population, state.electors,
-              state.dem, state.gop, state.grn, state.lib, state.una, state.oth];
+              dem_percentage, gop_percentage, oth_percentage, state.dem, state.gop, state.grn, state.oth];
     });
 
   td.enter()
